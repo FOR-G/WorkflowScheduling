@@ -7,9 +7,12 @@
 
 class Location:
     # longitude 经度 latitude 维度
-    def __init__(self, lati=0, longi=0):
-        self.latitude = lati
-        self.longitude = longi
+    def __init__(self, args):
+        if type(args) != Location:
+            self.latitude, self.longitude = args[0],args[1]
+        else:
+            self.latitude = args.latitude
+            self.longitude = args.longitude
 
     def __str__(self):
         return str(self.latitude)+' '+str(self.longitude)
@@ -20,8 +23,8 @@ class Location:
 
 class User(Location):
     # workflow 只考虑顺序结构 列表表示
-    def __init__(self, lati, longi, workf=[]):
-        super(User, self).__init__(lati, longi)
+    def __init__(self, args, workf):
+        super(User, self).__init__(args)
         self.workflow = workf
 
     def __str__(self):
@@ -33,15 +36,16 @@ class User(Location):
 
 class Server(Location):
     # 服务器包含位置 价格 范围
-    def __init__(self, radius, cost, lati, longi):
-        super(Server, self).__init__(lati, longi)
-        self.ra = radius
+    def __init__(self, args, radius, cost):
+        super(Server, self).__init__(args)
+        self.radius = radius
         self.cost = cost
 
     def __str__(self):
-        return str(self.latitude)+' '+str(self.longitude)+' '+str(self.ra)+' '+str(self.cost)
+        return str(self.latitude)+' '+str(self.longitude)+' '+str(self.radius)+' '+str(self.cost)
 
     def print(self):
         print('[' + str(self) + ']')
+
 '''编码'''
 # 任务编码，
