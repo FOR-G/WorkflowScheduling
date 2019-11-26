@@ -48,16 +48,34 @@ def getServer():
     with open("Server_data.txt",'r',encoding='utf8') as file:
         for content in file:
             li = content.split()
-            s = Server([li[0],li[1]],li[2],li[3])
+            s = Server([float(li[0]), float(li[1])], float(li[2]), float(li[3]))
             # s.print()
+            ser.append(s)
+    return ser
 
 
 # 存入N个用户/工作流
 
-
 # 画出服务器的为位置
-def plotCircle(Li= []):
+def plotServer(ser):
+    fig, ax = plt.subplots()
 
+    for s in ser:
+        #print(type(s.latitude))
+        print(s.latitude,s.longitude)
+        c = pat.Circle((s.latitude, s.longitude), s.radius, edgecolor='black', alpha=.5)
+        ax.add_patch(c)
+    ax.plot()
+    plt.show()
+
+ser =getServer()
+# for s in ser:
+#     s.print()
+plotServer(ser)
+
+
+# 画图示范
+def plotCircle():
     fig, ax = plt.subplots()
     N = 50
     n = 20
@@ -69,8 +87,9 @@ def plotCircle(Li= []):
         c = pat.Circle((x[i], y[i]), r[i], edgecolor='black', alpha=.5)
         ax.add_patch(c)
     ax.plot()
-    # plt.show()        #坐标不自动补全
+    plt.show()        #坐标不自动补全
 
+#plotCircle()
 
 
 # plotCircle()
